@@ -1,0 +1,91 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<dom-module id="inter-activity">
+	<template>
+		<style>
+			:host {
+				display: inline;
+				margin: 10px;
+			}
+			paper-card{
+				width: 332px;
+				--paper-card-header:{
+					background-color:var(--paper-grey-800);
+					text-align: center;
+					height:50px; 
+				}
+				--paper-card-header-color:var(--inter-gold-color);
+				--paper-card-content:{
+					left: 0px;
+					top: 0px;
+					padding: 0;
+					background-color: var(--paper-grey-800);
+				}
+				--paper-card-actions:{
+					background-color: var(--inter-blue-color);
+					border-top:1px solid var(--inter-blue-color);
+					height: 40px;
+					text-align: center;
+					vertical-align: center;
+				};
+			}
+			span{
+				color: #FFF;
+				font-size: 12px;
+			}
+		</style>
+		<paper-card heading="[[_category]]" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+		  	<iron-image src$='[[srcImage]]' preload sizing="cover" style="width:332px ;height:272px;margin-top: 10px;margin-right: 10px;"></iron-image>
+		  </div>
+		  <div class="card-actions">
+		    <span>[[_title]]</span>
+		  </div>
+		</paper-card>
+	</template>
+	<script>
+		class InterActivity extends Polymer.Element{
+			static get is(){ return 'inter-activity';}
+			static get properties(){
+				return{
+					category:{
+						type:String,
+						value:'Academy'
+					},
+					_category:{
+						type:String,
+						computed:'_categoryComputed(category)'
+					},
+					srcImage:{
+						type:String,
+						value:'../../img/png/related_1.jpg'
+					},
+					title:{
+						type:String,
+						value:'Inter Academy YIHAI BEIJING: FROM BEIJING DESIGN WEEK TO RESTART OF ACTIVITY'
+					},
+					_title:{
+						type:String,
+						computed:'_titleComputed(title)'
+					}
+				};
+			}
+			_categoryComputed(category){
+				return 'INTER '+category.toUpperCase();
+			}
+			_titleComputed(title){
+				var a="";
+				if (title.length>=80){
+					for (var i = title.length - 1; i >= 0; i--) {
+						if (title[i]==' '){
+							a=title.slice(0,title.length-i)+" ...";
+						}
+					}
+				}
+				else a=title;
+				return a.toUpperCase();
+			}
+		}
+		window.customElements.define(InterActivity.is,InterActivity);
+	</script>
+</dom-module>

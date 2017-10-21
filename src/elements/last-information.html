@@ -1,0 +1,123 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/l2t-paper-slider/l2t-paper-slider.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../inter-site-app/my-icons.html">
+
+<dom-module id="last-information">
+    <template>
+        <style is="custom-style" include="iron-flex">
+         :host {
+            display: block;
+            /*width: 500px;*/
+            background-color: #FFF;
+        }
+
+        l2t-paper-slider {
+            --paper-slide-height: 500px;
+            --paper-slide-width: 600px;
+            z-index: 0;
+        }
+
+        paper-slide {
+            color: grey;
+            z-index: 0;
+        }
+        div.infromation{
+        	background-color: #FFF;
+        	width: 400px;
+        	display: flex;
+        	justify-content: space-around;
+        }
+        h2,p{
+        	font-weight: lighter;
+        	margin-left: 20px;
+        	margin-right: 10px;
+        }
+        paper-button{
+        	border:1px solid var(--inter-blue-color);
+        	color: var(--inter-blue-color);
+        	background-color: #FFF;
+        }
+        paper-button:hover{
+        	color: #FFF;
+        	background-color:var(--inter-blue-color);;
+        }
+        div.related-news{
+        		width: 300px;
+    				overflow-x: auto;
+    				white-space: nowrap;
+        }
+        div.related-news>div{
+					position: relative;
+        	width: 150px;
+        	height: 190px;
+        	margin-left: 10px;
+        	/*overflow-x: auto;*/
+    				white-space: nowrap;
+        }
+         div.related-news>div>p{
+         	width: 150px;
+         	margin-left: 2px;
+         	font-size: 12px;
+         	white-space: pre-wrap;
+         }
+         iron-icon{
+         	position: absolute;
+         	bottom: 0px;
+         	left: 0px;
+         	z-index: 2;
+         }
+         img{
+         	z-index: 0;
+         }
+         .premiere{
+         	z-index: 0;
+         }
+        </style>
+        
+	      <div class="premiere layout horizontal">
+	        <l2t-paper-slider total-slides="2">
+	            <paper-slide><img src="../../img/png/info_1.jpg" style='width:660px;height:500px;object-fit: contain;'></paper-slide>
+	            <paper-slide>#2</paper-slide>
+	        </l2t-paper-slider>
+	        <div class='information layout vertical center'>
+	        	<h2>[[title]]</h2>
+	        	<p>[[subtitle]]</p>
+	        	<paper-button>read →</paper-button>
+						<p>Related News</p><br>
+	        	<div class="related-news layout horizontal">
+							<div class="layout vertical">
+								<img src="../../img/png/related_1.jpg" style="height:100px;width: 150px">
+								<p>SPECIAL MATCHDAY EXPERIENCE FOR INTER CLUB MEMBERS</p>
+							</div>
+							<div class="layout vertical">
+								<img src="../../img/png/related_2.jpg" style="height:100px;width: 150px">
+								<p>NICOLA BERTI PRESENTED INTER CLUBS WITH AWARDS ON THEIR ANNIVERSARIES</p>
+							</div>
+	        	</div>
+	        </div>
+	        
+	      </div>  
+	      <iron-icon icon="my-icons:all"></iron-icon>
+    </template>
+    <script>
+    class LastInformation extends Polymer.Element {
+        static get is() { return 'last-information'; }
+        static get properties() {
+            return {
+                title:{
+                	type:String,
+                	value:"ACADEMY RESULTS FOR THE WEEKEND"
+                },
+                subtitle:{
+                	type:String,
+                	value:"Vecchi's Primavera approached the return of the UEFA Youth League with a league win. Zanchetta's Under-17s drew at Chievo Verona. "
+                }
+            };
+        }
+    }
+    window.customElements.define(LastInformation.is, LastInformation);
+    </script>
+</dom-module>

@@ -1,0 +1,426 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+
+
+
+
+
+<link rel="import" href="view404-page.html">
+<link rel="import" href="home-page.html">
+<link rel="import" href="news-page.html">
+<link rel="import" href="my-icons.html">
+<dom-module id="inter-site-app">
+    <template>
+        <style is='custom-style' include="iron-flex">
+         :host {
+            --inter-blue-color: #0079c2;
+            --inter-gold-color: #a29061;
+        }
+
+        app-toolbar {
+            background-color: rgba(255, 255, 255, 0);
+            color: #fff;
+            z-index: 1;
+        }
+
+        paper-icon-button {
+            --paper-icon-button-ink-color: white;
+        }
+
+        paper-icon-button+[main-title] {
+            margin-left: 24px;
+        }
+
+        app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 132px;
+            color: #fff;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0);
+            --app-header-background-front-layer: {
+                background-position: left center;
+            }
+            ;
+        }
+
+        p {
+            padding-top: 128px;
+        }
+
+        a {
+            margin-right: 20px;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none
+        }
+
+        a:hover {
+            color: var(--paper-grey-400);
+            text-decoration: none
+        }
+
+        app-drawer>a {
+            display: block;
+            margin-top: 20px;
+            margin-left: 10px;
+            color: :var(--paper-grey-900);
+        }
+
+        app-drawer>a:hover {
+            display: block;
+            margin-bottom: 20px;
+            color: :var(--paper-grey-400);
+        }
+
+        paper-icon-button {
+            --paper-icon-button-ink-color: white;
+        }
+
+        app-toolbar.tall {
+            height: 20px;
+        }
+
+        [main-title] {
+            font-weight: lighter;
+            margin-left: 108px;
+        }
+
+        [condensed-title] {
+            font-weight: lighter;
+            margin-left: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        [condensed-title] i {
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        @media (max-width: 639px) {
+            [main-title] {
+                margin-left: 50px;
+                font-size: 30px;
+            }
+            [condensed-title] {
+                font-size: 15px;
+            }
+        }
+
+        [threshold-triggered] app-toolbar.first>iron-image {}
+
+        [threshold-triggered] app-toolbar.first {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            border-bottom: 5px solid var(--inter-gold-color);
+            background-color: var(--inter-blue-color);
+        }
+
+        app-toolbar.last,
+        app-toolbar.first {
+            /*border-bottom: 0.2px solid var(--paper-grey-600)*/
+            z-index: 1;
+        }
+
+        app-toolbar.last:before {
+            content: "";
+            position: absolute;
+            right: 40px;
+            bottom: 0;
+            height: 0.2px;
+            width: 65%;
+            /* or 100px */
+            border-bottom: 0.2px solid var(--paper-grey-700);
+        }
+
+        paper-button {
+            font-size: 12px;
+        }
+
+        paper-input {
+            margin-top: -18px;
+            margin-left: 20px;
+            margin-right: 20px;
+            --paper-input-container-focus-color: #FFF;
+            --paper-input-container-input-color: #FFF;
+        }
+
+        app-toolbar>iron-icon {
+            margin-right: 40px;
+        }
+
+        .second-toolbar {
+            margin-right: -15px;
+        }
+
+
+        #container {
+            position: relative;
+        }
+
+        #navi,
+        #infoi {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #infoi {
+            position: relative;
+            z-index: 10;
+            margin-top: 150px;
+            display: table;
+            margin: 0 auto;
+        }
+
+        #infoi h5 {
+            color: #FFF;
+            font-weight: lighter;
+        }
+        </style>
+
+        <app-location
+            route="{{route}}"
+            url-space-regex="^[[rootPath]]">
+        </app-location>
+
+        <app-route
+            route="{{route}}"
+            pattern="[[rootPath]]:page"
+            data="{{routeData}}"
+            tail="{{subroute}}">
+        </app-route>
+
+
+        <app-header-layout>
+                <app-header threshold="84" main fixed reveals effects="resize-title">
+                    <app-toolbar class="last">
+                        <h4 condensed-title>
+            <iron-image src="../../img/png/inter.png" preload fade style="width:50px; height:50px;" sizing="cover"></iron-image></h4>
+                        <paper-icon-button icon="my-icons:facebook"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:instagram"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:twitter"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:snapchat"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:linkedin"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:youtube"></paper-icon-button>
+                        <paper-icon-button src="../../img/png/dugout.svg"></paper-icon-button>
+                        <paper-icon-button src="../../img/png/method-draw-image.svg"></paper-icon-button>
+                        <paper-icon-button icon="my-icons:wechat"></paper-icon-button>
+                        <paper-button>English 👇</paper-button>
+                        <paper-input placeholder="search">
+                            <iron-icon icon="search" slot="suffix"></iron-icon>
+                        </paper-input>
+                        <paper-button>login</paper-button>
+                        <iron-icon icon="my-icons:login"></iron-icon>
+                        </paper-button>
+                    </app-toolbar>
+                    <app-toolbar class="first">
+                        <h1 fixed></h1>
+                        <h1 main-title>
+            <iron-image src="../../img/png/inter.png" style="width:100px; height:100px;" sizing="cover"></iron-image></h1>
+                      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">  
+                        <a href="[[rootPath]]home">Home</a>
+                        <a href="[[rootPath]]news">News</a>
+                        <a href="#">Team</a>
+                        <a href="#">Season</a>
+                        <a href="#">Club</a>
+                        <a href="#">Interisti</a>
+                        <!-- TODO: Change this ugly stuff -->
+                        <a href="#">Tickets</a>
+                        <iron-icon class="second-toolbar" icon="add"></iron-icon>
+                        <a href="#">Shop</a>
+                        <iron-icon class="second-toolbar" icon="my-icons:cart"></iron-icon>
+                        <template is="dom-if" if="{{changeHeader}}">
+                            <paper-icon-button icon="my-icons:login"></paper-icon-button>  
+                        </template>
+                        </iron-selector>
+                    </app-toolbar>
+                </app-header>
+            <!-- </div> -->
+            <app-drawer-layout>
+                
+
+
+
+
+                
+
+
+
+
+                
+
+
+
+
+
+                <iron-pages
+                  selected="[[page]]"
+                  attr-for-selected="name"
+                  fallback-selection="view404"
+                  role="main">
+                  <home-page name="home"></home-page>
+                  <news-page name="news"></news-page>
+                  <view404-page name="view404"></view404-page>
+                </iron-pages> 
+
+
+
+
+
+               
+                <div id="container">
+                    <iron-image id="navi" src="../../img/png/palmares-stripe-desktop.jpg" style="width:100%; height:520px;" sizing="cover"></iron-image>
+                    <div id="infoi">
+                        <div class="layout horizontal center">
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/coppa-uefa-icon-white.svg " style="width:80px; height:160px;"></iron-image>
+                                <h5>UEFA Cup</h5>
+                            </div>
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/coppa-italia-icon-white.svg " style="width:80px; height:160px;"></iron-image>
+                                <h5>Coppa Italia</h5>
+                            </div>
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/mondiale-per-club-icon-white.svg " style="width:80px; height:160px;"></iron-image>
+                                <h5>FIFA Club World Cup</h5>
+                            </div>
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/supercoppa-di-lega-icon-white.svg " style="width:80px; height:160px;"></iron-image>
+                                <h5>Italian Super Cup</h5>
+                            </div>
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/champions-league-icon-white.svg " style="width:120px; height:160px;"></iron-image>
+                                <h5>UEFA Champions League</h5>
+                            </div>
+                            <div class="layout vertical center">
+                                <iron-image src="../../img/png/campionato-icon-white.svg " style="width:140px; height:160px;"></iron-image>
+                                <h5>Seria A</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </app-drawer-layout>
+        </app-header-layout>
+    </template>
+    <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class InterSiteApp extends Polymer.Element {
+        static get is() { return 'inter-site-app'; }
+        static get properties() {
+            return {
+              changeHeader:{
+                type:Boolean,
+                value:false
+              },
+              position:{
+                type:Number,
+                value:0
+              },
+              page: {
+                type: String,
+                reflectToAttribute: true,
+                observer: '_pageChanged',
+              },
+              routeData: Object,
+              subroute: String,
+              rootPath: String,
+              submenu:Array
+            };
+        }
+        static get observers() {
+          return [
+            '_routePageChanged(routeData.page)',
+          ];
+        }
+        _routePageChanged(page) {
+          // If no page was found in the route data, page will be an empty string.
+          // Default to 'view1' in that case.
+          this.page = page || 'home';
+
+          // Close a non-persistent drawer when the page & route are changed.
+          // if (!this.$.drawer.persistent) {
+          //   this.$.drawer.close();
+          // }
+        }
+        _pageChanged(page) {
+          // Load page import on demand. Show 404 page if fails
+          var resolvedPageUrl = this.resolveUrl(page + '-page.html');
+          Polymer.importHref(
+              resolvedPageUrl,
+              null,
+              this._showPage404.bind(this),
+              true);
+        }
+
+        _showPage404() {
+          this.page = 'view404';
+        }
+        ready() {
+            super.ready();
+            window.addEventListener('scroll',e=>this._scroll(e));
+            var as=document.getElementsByTagName("a");
+            for (var i = as.length - 1; i >= 0; i--) {
+              as[i].addEventListener("mouseenter", e=>this._submenu(e));
+              as[i].addEventListener("mouseleave", e=>this.submenu=null);
+            }
+        }
+        
+        _toggle() {
+            this.$.drawer.toggle()
+        }
+        _scroll(e){
+          var st = window.pageYOffset || document.documentElement.scrollTop;
+          if (st>this.position){
+            this.changeHeader=true;
+          }
+          else{
+            this.changeHeader=false;
+          }
+          this.position=st;
+          
+        }
+        _submenu(e){
+          console.log(e.explicitOriginalTarget.data);
+          switch(e.explicitOriginalTarget.data.toLowerCase()) {
+            case "news":
+              this.submenu=["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
+              break;
+            case "team":
+              
+              break;
+          }
+        }
+    }
+
+    window.customElements.define(InterSiteApp.is, InterSiteApp);
+    </script>
+</dom-module>

@@ -1,0 +1,84 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="../elements/last-result.html">
+<link rel="import" href="../elements/last-information.html">
+<link rel="import" href="../elements/news-card.html">
+<link rel="import" href="../elements/inter-activity.html">
+
+
+<dom-module id="home-page">
+    <template>
+        <style is="custom-style" include=" iron-flex app-grid-style">
+         :host {
+            display: block;
+            --app-grid-columns: 5;
+            --app-grid-item-height: 400px;
+            --app-grid-expandible-item-columns: 2;
+        	}
+        	last-result {
+            position: absolute;
+            left: 30%;
+            top: 132px;
+	        }
+
+	        last-information {
+	            z-index: 0;
+	            width: 950px;
+	            position: relative;
+	            margin-top: -50px;
+	            margin-left: 150px;
+	        }
+
+	        news-card:nth-child(2n) {
+	            --news-card-background-color: var(--inter-blue-color);
+	        }
+
+	        news-card:nth-child(2n+1) {
+	            --news-card-background-color: var(--paper-grey-900);
+	        }
+
+	        news-card:nth-child(4n+1) {
+	            margin-left: 125px;
+	        }
+	        div.header-container {
+            height: 540px;
+            background-image: url("../../img/png/icardi.jpg");
+            background-position: center;
+            border-bottom: 5px solid var(--inter-gold-color);
+        	}
+
+        </style>
+        <div class="header-container">
+                <last-result></last-result>
+        </div>        
+        <last-information></last-information>
+        <iron-image src="../../img/png/app_inter.jpg" preload fade style="width:1024px; height:108px;margin-left: 120px;margin-top: 20px;margin-bottom: 20px;" sizing="cover"></iron-image>
+        <ul class="app-grid">
+            <news-card class="item" category="Photos"></news-card>
+            <news-card class="item" category="Photos" src-image="../../img/png/related_1.jpg" title="Special matchday experience for Inter Club members "></news-card>
+            <news-card class="item" category="Photos" src-image="../../img/png/info_1.jpg" title="UEFA Youth League, Vecchi's U-19s have qualification to play for in Kiev"></news-card>
+            <news-card class="item"></news-card>
+            <news-card class="item"></news-card>
+            <news-card class="item"></news-card>
+            <news-card class="item"></news-card>
+            <news-card class="item"></news-card>
+        </ul>
+        <div class="layout horizontal">
+            <inter-activity category="academy" title="Inter Academy YIHAI BEIJING: FROM BEIJING DESIGN WEEK TO RESTART OF ACTIVITY HELLO"></inter-activity>
+            <inter-activity category="campus" title="cambiasso honoured by inter forever"></inter-activity>
+            <inter-activity category="forever" title="inter campus israel/palestine: ready for a new start"></inter-activity>
+        </div>
+    </template>
+    <script>
+    class HomePage extends Polymer.Element {
+        static get is() { return 'home-page'; }
+        static get properties() {
+            return {
+
+            };
+        }
+    }
+    window.customElements.define(HomePage.is, HomePage);
+    </script>
+</dom-module>

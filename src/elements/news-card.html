@@ -1,0 +1,115 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="news-card">
+	<template>
+		<style is="custom-style" include="iron-flex">
+			:host {
+				display: inline;
+				color: #FFF;
+			}
+			paper-card {
+				max-width: 241.783px;
+				background-color: var(--news-card-background-color);
+				--paper-card-actions:{
+					border-top:1px solid var(--news-card-background-color);
+				};
+				--paper-card-header-image:{
+					max-height:160.917px;
+				}
+				--paper-card-header:{
+					max-height:160.917px;
+				}
+				
+  		}
+  		paper-card>div.card-actions{
+  			margin-top: -10px;
+  			margin-bottom: 10px;
+  		}
+  		paper-button{
+  			color:#FFF;
+  			border:1px solid #FFF;
+  			background-color: var(--news-card-background-color);
+  			height: 50px;
+  		}
+  		paper-button:hover{
+  			color:var(--news-card-background-color);
+  			background-color: #FFF;
+  		}
+  		h5{
+				font-weight: lighter;
+				margin-right: 20px;
+				text-align: center;
+  		}
+  		label{
+  			font-weight: lighter;
+  			font-size: 12px;
+  			color: var(--paper-grey-200);
+  		}
+		</style>
+		<paper-card image="[[srcImage]]" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+		  	<label>[[_dateFormated.day]].[[_dateFormated.month]].[[_dateFormated.year]] / [[_dateFormated.hour]]:[[_dateFormated.minute]]</label>
+				<h4>[[title]]</h4>
+		  </div>
+		  <div class="card-actions layout horizontal">
+		    <iron-image src$='[[_categoryIcon]]' preload sizing="cover" style="width:30px ;height:30px;margin-top: 10px;margin-right: 10px;"></iron-image>
+		    	<h5>[[category]]</h5>
+		    <paper-button>read →</paper-button>
+		  </div>
+		</paper-card>
+			
+	</template>
+	<script>
+		class NewsCard extends Polymer.Element{
+			static get is(){return 'news-card';}
+			static get properties(){
+				return{
+					srcImage:{
+						type:String,
+						value:"../../img/png/milito.jpg"
+					},
+					date:{
+						type:Date,
+						value: new Date(2017, 10,18,10,43)
+					},
+					title:{
+						type:String,
+						value:"Milito honoured with Mediterranean Award in Andria"
+					},
+					category:{
+						type:String,
+						value:'Team'
+					},
+					_categoryIcon:{
+						type:String,
+						computed:'_categoryIconComputed(category)'
+					},
+					_dateFormated:{
+						type:Object,
+						computed:'__dateFormatedComputed(date)'
+					}
+				};
+			}
+			_categoryIconComputed(category){
+					return "../../img/png/ico-"+category.toLowerCase()+".svg";
+			}
+			__dateFormatedComputed(date){
+				return{
+					year:date.getUTCFullYear(),
+					month:date.getMonth(),
+					day:date.getDay(),
+					hour:date.getHours(),
+					minute:date.getMinutes()
+				}
+			}
+		}
+		window.customElements.define(NewsCard.is, NewsCard);
+	</script>
+</dom-module>
+
+
+

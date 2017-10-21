@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<dom-module id="news-page">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<h4>This is an error page</h4>
+	</template>
+	<script>
+		
+		class NewsPage extends Polymer.Element{
+			static get is(){ return'news-page';}
+			static get properties(){
+				return{
+
+				};
+			}
+		}
+		window.customElements.define(NewsPage.is,NewsPage);
+	</script>
+</dom-module>

@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<dom-module id="view404-page">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<h4>This is an error page</h4>
+	</template>
+	<script>
+		
+		class View404Page extends Polymer.Element{
+			static get is(){ return'view404-page';}
+			static get properties(){
+				return{
+
+				};
+			}
+		}
+		window.customElements.define(View404Page.is,View404Page);
+	</script>
+</dom-module>

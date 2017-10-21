@@ -1,0 +1,6 @@
+{
+  "name": "inter-site",
+  "short_name": "inter-site",
+  "start_url": "/",
+  "display": "standalone"
+}
