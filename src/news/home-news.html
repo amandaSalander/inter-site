@@ -1,28 +1,97 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
 <link rel="import" href="../elements/news-card.html">
 
 <dom-module id="home-news">
 	<template>
-		<style is="custom-style" include="app-grid-style">
+		<style is="custom-style" include="app-grid-style iron-flex">
 			:host {
 				display: block;
 				--app-grid-columns: 4;
         --app-grid-item-height: 400px;
         --app-grid-expandible-item-columns: 2;
+        --primary-color:var(--paper-grey-500);
 			}
 			news-card:nth-child(2n) {
-	            --news-card-background-color: var(--inter-blue-color);
+	      --news-card-background-color: var(--inter-blue-color);
 	    }
 
 	    news-card:nth-child(2n+1) {
-	            --news-card-background-color: var(--paper-grey-900);
+	      --news-card-background-color: var(--paper-grey-900);
 	    }
 	    ul{
 	    	vertical-align: center;
 	    	margin-left: 8%;
 	    }
+	    paper-input {
+            --paper-input-container-color: var(--paper-grey-500);
+            --paper-input-container-focus-color: var(--paper-grey-500);
+      }
+      iron-icon{
+      	color: var(--paper-grey-500);
+      }
+      h2{
+      	font-weight: lighter;
+      	color: var(--paper-grey-700);
+      }
+      app-toolbar{
+      	margin-top: 40px;
+      	border-bottom: 1px solid var(--inter-gold-color);
+      }
+      paper-dropdown-menu, paper-listbox {
+		    width: 250px;
+		  }
+		  paper-dropdown-menu {
+		    display: block;
+		    margin-left: 5%;
+		  }
 		</style>
+		<app-toolbar class="layout horizontal">
+			<h2 main-title>News</h2>
+			<paper-input placeholder="search">
+        <iron-icon icon="search" slot="suffix"></iron-icon>
+      </paper-input>
+      <div>
+      <paper-dropdown-menu placeholder="Type">
+			  <paper-listbox slot="dropdown-content">
+			    <paper-item>All</paper-item>
+			    <paper-item>Photos</paper-item>
+			    <paper-item>Academy</paper-item>
+			    <paper-item>Club</paper-item>
+			    <paper-item>Team</paper-item>
+			    <paper-item>Inter Clubs</paper-item>
+			    <paper-item>Inter TV</paper-item>
+			    <paper-item>Mondo Futbol</paper-item>
+			    <paper-item>Inter Campus</paper-item>
+			    <paper-item>Stadium & Tickets</paper-item>
+			    <paper-item>Press Room</paper-item>
+			    <paper-item>Interisti</paper-item>
+			    <paper-item>Inter Forever</paper-item>
+			    <paper-item>Inter Academy</paper-item>
+			    <paper-item>Partners</paper-item>
+			    <paper-item>Bwin</paper-item>
+			    <paper-item>Match Review</paper-item>
+			  </paper-listbox>
+			</paper-dropdown-menu>
+		</div>
+			<paper-dropdown-menu placeholder="Date">
+			  <paper-listbox slot="dropdown-content">
+			    <paper-item>Last Week</paper-item>
+			    <paper-item>Last Month</paper-item>
+			    <paper-item>Last Year</paper-item>
+			  </paper-listbox>
+			</paper-dropdown-menu>
+
+		</app-toolbar>
 		<ul class="app-grid">
             <news-card class="item" category="Photos"></news-card>
             <news-card class="item" category="Photos" src-image="../../img/png/related_1.jpg" title="Special matchday experience for Inter Club members "></news-card>
