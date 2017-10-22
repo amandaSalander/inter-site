@@ -1,25 +1,89 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
 <dom-module id="news-page">
-	<template>
-		<style>
-			:host {
-				display: block;
-			}
-		</style>
-		<h4>This is an error page</h4>
-	</template>
-	<script>
-		
-		class NewsPage extends Polymer.Element{
-			static get is(){ return'news-page';}
-			static get properties(){
-				return{
+    <template>
+        <style>
+         :host {
+            display: block;
+        	}
+        	app-toolbar.submenu{
+	          background-color: var(--paper-grey-900);
+	          opacity: 0.8;
+	          height: 40px;
+        	}
+        	app-toolbar{
+        		background-color: var(--inter-blue-color);
+        		height: 128px;
+        	}
+        	a {
+		        padding: 0 8px;
+		        text-decoration: none;
+		        color: #FFF;
+		        line-height: 40px;
+		        font-weight: lighter;
+		        font-size: 16px;
+		      }
+		      a:hover{
+		        border-bottom: 0.5px solid #FFF;
+		        font-weight: bold;
+		      }
+        </style>
+        <app-toolbar>
+        	
+        </app-toolbar>
 
-				};
-			}
-		}
-		window.customElements.define(NewsPage.is,NewsPage);
-	</script>
+        <iron-pages
+                  selected="[[page]]"
+                  attr-for-selected="name"
+                  fallback-selection="view404"
+                  role="main">
+            <home-news name="/home-news"></home-news>      
+
+        </iron-pages>
+
+        
+    </template>
+    <script>
+    class NewsPage extends Polymer.Element {
+        static get is() { return 'news-page'; }
+        static get properties() {
+            return {
+                submenu: {
+                    type: Array,
+                    value: ["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
+                },
+                name:{
+                	type:String,
+                	value:""
+                },
+                route:Object,
+                page:{
+                    type:String,
+                    observer:"_pageChanged"
+                }
+            };
+        }
+        static get observers(){
+            return [
+                '_routePageChanged(route.path)',
+            ]
+        }
+        _routePageChanged(page) {
+          this.page = page || 'home-news';
+        }
+        _pageChanged(page) {
+          // Load page import on demand. Show 404 page if fails
+          var resolvedPageUrl = this.resolveUrl("../news"+page + '.html');
+          Polymer.importHref(
+              resolvedPageUrl,
+              null,
+              this._showPage404.bind(this),
+              true);
+        }
+        _showPage404() {
+          this.page = 'view404';
+        }
+    }
+    window.customElements.define(NewsPage.is, NewsPage);
+    </script>
 </dom-module>

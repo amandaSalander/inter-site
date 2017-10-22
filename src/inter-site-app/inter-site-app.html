@@ -1,20 +1,22 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<link rel="import" href="../../bower_components/app-route/app-location.html">
-<link rel="import" href="../../bower_components/app-route/app-route.html">
-<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 
 
@@ -153,7 +155,7 @@
             height: 0.2px;
             width: 65%;
             /* or 100px */
-            border-bottom: 0.2px solid var(--paper-grey-700);
+            border-bottom: 0.2px solid var(--paper-grey-200);
         }
 
         paper-button {
@@ -164,6 +166,7 @@
             margin-top: -18px;
             margin-left: 20px;
             margin-right: 20px;
+            --paper-input-container-color: #FFF;
             --paper-input-container-focus-color: #FFF;
             --paper-input-container-input-color: #FFF;
         }
@@ -202,11 +205,40 @@
             color: #FFF;
             font-weight: lighter;
         }
+        app-toolbar.submenu{
+          background-color: var(--paper-grey-900);
+          opacity: 0.8;
+          height: 40px;
+          position: relative;
+        }
+        app-toolbar.submenu a{
+          font-weight: lighter;
+        }
+        .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        padding: 0 4px;
+        text-decoration: none;
+        color: #FFF;
+        line-height: 40px;
+        font-weight: lighter;
+      }
+      .drawer-list a:hover{
+        border-bottom: 0.5px solid #FFF;
+        font-weight: bold;
+      }
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
         </style>
 
         <app-location
             route="{{route}}"
-            url-space-regex="^[[rootPath]]">
+            url-space-regex="^[[rootPath]]"
+            >
         </app-location>
 
         <app-route
@@ -219,6 +251,8 @@
 
         <app-header-layout>
                 <app-header threshold="84" main fixed reveals effects="resize-title">
+                    
+                    <!--  -->
                     <app-toolbar class="last">
                         <h4 condensed-title>
             <iron-image src="../../img/png/inter.png" preload fade style="width:50px; height:50px;" sizing="cover"></iron-image></h4>
@@ -239,27 +273,47 @@
                         <iron-icon icon="my-icons:login"></iron-icon>
                         </paper-button>
                     </app-toolbar>
+
+
+
                     <app-toolbar class="first">
                         <h1 fixed></h1>
                         <h1 main-title>
             <iron-image src="../../img/png/inter.png" style="width:100px; height:100px;" sizing="cover"></iron-image></h1>
-                      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">  
+                     
+
+
+                      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"> 
+
+
+
                         <a href="[[rootPath]]home">Home</a>
-                        <a href="[[rootPath]]news">News</a>
+                        <a href="[[rootPath]]news/home-news">News</a>
                         <a href="#">Team</a>
                         <a href="#">Season</a>
                         <a href="#">Club</a>
                         <a href="#">Interisti</a>
                         <!-- TODO: Change this ugly stuff -->
-                        <a href="#">Tickets</a>
+                        <!-- <a href="#">Tickets</a>
                         <iron-icon class="second-toolbar" icon="add"></iron-icon>
                         <a href="#">Shop</a>
-                        <iron-icon class="second-toolbar" icon="my-icons:cart"></iron-icon>
+                        <iron-icon class="second-toolbar" icon="my-icons:cart"></iron-icon> -->
                         <template is="dom-if" if="{{changeHeader}}">
                             <paper-icon-button icon="my-icons:login"></paper-icon-button>  
                         </template>
                         </iron-selector>
+
+
+
                     </app-toolbar>
+                    <template is="dom-if" if="[[submenu]]">
+                      <app-toolbar class="submenu">
+                        <h1 main-title></h1>
+                        <template is="dom-repeat" items="[[submenu]]">
+                          <a href="#">[[item]]</a>
+                        </template>
+                      </app-toolbar>
+                    </template>  
                 </app-header>
             <!-- </div> -->
             <app-drawer-layout>
@@ -285,7 +339,7 @@
                   fallback-selection="view404"
                   role="main">
                   <home-page name="home"></home-page>
-                  <news-page name="news"></news-page>
+                  <news-page name="news" route="[[subroute]]"></news-page>
                   <view404-page name="view404"></view404-page>
                 </iron-pages> 
 
@@ -370,6 +424,9 @@
           // if (!this.$.drawer.persistent) {
           //   this.$.drawer.close();
           // }
+          if (page!="home"){
+            this.submenu=null;
+          }
         }
         _pageChanged(page) {
           // Load page import on demand. Show 404 page if fails
@@ -390,7 +447,7 @@
             var as=document.getElementsByTagName("a");
             for (var i = as.length - 1; i >= 0; i--) {
               as[i].addEventListener("mouseenter", e=>this._submenu(e));
-              as[i].addEventListener("mouseleave", e=>this.submenu=null);
+              as[i].addEventListener("mouseleave", e=>this._currentSelectedMenu(e));
             }
         }
         
@@ -411,12 +468,51 @@
         _submenu(e){
           console.log(e.explicitOriginalTarget.data);
           switch(e.explicitOriginalTarget.data.toLowerCase()) {
+            case "home":
+              this.submenu=null;
+              break;
             case "news":
               this.submenu=["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
               break;
             case "team":
-              
+              this.submenu=["First Team","Coach","Staff","Training Schedule","Statics","Academy","Inter Forever"]
               break;
+            case "season":
+              this.submenu=["Home Season","Match Centre","Results & Fixtures","Serie A TIM","TIM Cup"]
+              break;
+            case "club":
+              this.submenu=["Home Club","Org Chart","Honours","Inter Campus","Inter Academy","Partners","Contacts","Archive","Code of Ethics","Work with us"];
+              break;
+            case "interisti":
+              this.submenu=["Home Interisti","Inter Club","Inter Official App"];
+              break;    
+          }
+        }
+        _currentSelectedMenu(e){
+          var a=document.getElementsByClassName("iron-selected")[0].name.toLowerCase();
+          console.log('a '+a);
+          switch(a) {
+            case "home":
+              this.submenu=null;
+              break;
+            case "news":
+              this.submenu=["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
+              break;
+            case "team":
+              this.submenu=["First Team","Coach","Staff","Training Schedule","Statics","Academy","Inter Forever"]
+              break;
+            case "season":
+              this.submenu=["Home Season","Match Centre","Results & Fixtures","Serie A TIM","TIM Cup"]
+              break;
+            case "club":
+              this.submenu=["Home Club","Org Chart","Honours","Inter Campus","Inter Academy","Partners","Contacts","Archive","Code of Ethics","Work with us"];
+              break;
+            case "interisti":
+              this.submenu=["Home Interisti","Inter Club","Inter Official App"];
+              break;    
+          }
+          if (a==undefined){
+            this.submenu=null;
           }
         }
     }
