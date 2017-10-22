@@ -442,13 +442,33 @@
           this.page = 'view404';
         }
         ready() {
-            super.ready();
-            window.addEventListener('scroll',e=>this._scroll(e));
-            var as=document.getElementsByTagName("a");
-            for (var i = as.length - 1; i >= 0; i--) {
-              as[i].addEventListener("mouseenter", e=>this._submenu(e));
-              as[i].addEventListener("mouseleave", e=>this._currentSelectedMenu(e));
-            }
+          super.ready();
+          window.addEventListener('scroll',e=>this._scroll(e));
+          var as=document.getElementsByTagName("a");
+          for (var i = as.length - 1; i >= 0; i--) {
+            as[i].addEventListener("mouseenter", e=>this._submenu(e));
+            as[i].addEventListener("mouseleave", e=>this._currentSelectedMenu(e));
+          }
+          switch(this.page.toLowerCase()) {
+            case "home":
+              this.submenu=null;
+              break;
+            case "news":
+              this.submenu=["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
+              break;
+            case "team":
+              this.submenu=["First Team","Coach","Staff","Training Schedule","Statics","Academy","Inter Forever"]
+              break;
+            case "season":
+              this.submenu=["Home Season","Match Centre","Results & Fixtures","Serie A TIM","TIM Cup"]
+              break;
+            case "club":
+              this.submenu=["Home Club","Org Chart","Honours","Inter Campus","Inter Academy","Partners","Contacts","Archive","Code of Ethics","Work with us"];
+              break;
+            case "interisti":
+              this.submenu=["Home Interisti","Inter Club","Inter Official App"];
+              break;    
+          }
         }
         
         _toggle() {
