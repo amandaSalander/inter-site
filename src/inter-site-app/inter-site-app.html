@@ -310,7 +310,7 @@
                       <app-toolbar class="submenu">
                         <h1 main-title></h1>
                         <template is="dom-repeat" items="[[submenu]]">
-                          <a href="#">[[item]]</a>
+                          <a href="[[item.link]]">[[item.name]]</a>
                         </template>
                       </app-toolbar>
                     </template>  
@@ -484,19 +484,59 @@
               a=null;
               break;
             case "news":
-              a=["Home News","Team","Stadiu & Tickets","Club","Press Room","Academy","Inter Academy","Inter Clubs","Inter Campus","Photos"]
+              a=[
+                {name:"Home News",link:"/news/home-news"},
+                {name:"Team",link:"/news/team-news"},
+                {name:"Stadium & Tickets",link:"/news/stadium-and-tickets-news"},
+                {name:"Club",link:"/news/club-news"},
+                {name:"Press Room",link:"/news/press-room-news"},
+                {name:"Academy",link:"/news/academy-news"},
+                {name:"Inter Academy",link:"/news/inter-academy-news"},
+                {name:"Inter Clubs",link:"/news/inter-clubs-news"},
+                {name:"Inter Campus",link:"/news/inter-campus-news"},
+                {name:"Photos",link:"/news/photos-news"}
+              ]
               break;
             case "team":
-              a=["First Team","Coach","Staff","Training Schedule","Statics","Academy","Inter Forever"]
+              a=[
+                {name:"First Team",link:"first-team"},
+                {name:"Coach",link:"coach-team"},
+                {name:"Staff",link:"staff-team"},
+                {name:"Training Schedule",link:"training-schedule-team"},
+                {name:"Statics",link:"statics-team"},
+                {name:"Academy",link:"academy-team"},
+                {name:"Inter Forever",link:"inter-forever"}
+              ]
               break;
             case "season":
-              a=["Home Season","Match Centre","Results & Fixtures","Serie A TIM","TIM Cup"]
+              a=[
+                {name:"Home Season",link:"home-season"},
+                {name:"Match Centre",link:"match-centre-season"},
+                {name:"Results & Fixtures",link:"results-and-fixtures-season"},
+                {name:"Serie A TIM",link:"serie-a-tim-season"},
+                {name:"TIM Cup",link:"tim-cup-season"}
+              ]
               break;
             case "club":
-              a=["Home Club","Org Chart","Honours","Inter Campus","Inter Academy","Partners","Contacts","Archive","Code of Ethics","Work with us"];
+              a=[
+                {name:"Home Club",link:"home-club"},
+                {name:"Org Chart",link:"org-chart-club"},
+                {name:"Honours",link:"honours-club"},
+                {name:"Inter Campus",link:"inter-campus-club"},
+                {name:"Inter Academy",link:"inter-academy-club"},
+                {name:"Partners",link:"partners-club"},
+                {name:"Contacts",link:"contacts-club"},
+                {name:"Archive",link:"archive-club"},
+                {name:"Code of Ethics",link:"code-of-ethics-club"},
+                {name:"Work with us",link:"work-with-us-club"}
+              ];
               break;
             case "interisti":
-              a=["Home Interisti","Inter Club","Inter Official App"];
+              a=[
+                {name:"Home Interisti",link:"home-interisti"},
+                {name:"Inter Club",link:"inter-club-interisti"},
+                {name:"Inter Official App",link:"inter-official-app"}
+              ];
               break;    
           }
           return a;

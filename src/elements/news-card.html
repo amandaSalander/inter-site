@@ -39,9 +39,9 @@
   			color:var(--news-card-background-color);
   			background-color: #FFF;
   		}
-  		h5{
+  		h6{
 				font-weight: lighter;
-				margin-right: 20px;
+				margin-right: 5px;
 				text-align: center;
   		}
   		label{
@@ -57,7 +57,7 @@
 		  </div>
 		  <div class="card-actions layout horizontal">
 		    <iron-image src$='[[_categoryIcon]]' preload sizing="cover" style="width:30px ;height:30px;margin-top: 10px;margin-right: 10px;"></iron-image>
-		    	<h5>[[category]]</h5>
+		    	<h6>[[category]]</h6>
 		    <paper-button>read →</paper-button>
 		  </div>
 		</paper-card>
@@ -95,7 +95,17 @@
 				};
 			}
 			_categoryIconComputed(category){
-					return "../../img/png/ico-"+category.toLowerCase()+".svg";
+				var a=category.toLowerCase()
+					if (a==="club"){
+						a="team";
+					}
+					if (a==="inter academy" || a==="inter campus"){
+						a="academy";
+					}
+					if (a==="inter clubs"){
+						a="press";
+					}
+					return "../../img/png/ico-"+a+".svg";
 			}
 			__dateFormatedComputed(date){
 				return{
