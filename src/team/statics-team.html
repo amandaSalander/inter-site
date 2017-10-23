@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+
+<dom-module id="statics-team">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<h1>This is the statics of the team</h1>
+	</template>
+	<script>
+		class StaticsTeam extends Polymer.Element{
+			static get is(){return 'statics-team';}
+			static get properties(){
+				return {
+
+				};
+			}
+		}
+		window.customElements.define(StaticsTeam.is,StaticsTeam);
+	</script>
+</dom-module>
