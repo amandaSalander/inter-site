@@ -23,10 +23,12 @@
 
 
 
-<link rel="import" href="view404-page.html">
-<link rel="import" href="home-page.html">
-<link rel="import" href="news-page.html">
-<link rel="import" href="my-icons.html">
+<link rel="lazy-import" href="view404-page.html">
+<link rel="lazy-import" href="home-page.html">
+<link rel="lazy-import" href="news-page.html">
+<link rel="lazy-import" href="team-page.html">
+<link rel="lazy-import" href="my-icons.html">
+
 <dom-module id="inter-site-app">
     <template>
         <style is='custom-style' include="iron-flex">
@@ -289,7 +291,7 @@
 
                         <a href="[[rootPath]]home">Home</a>
                         <a href="[[rootPath]]news/home-news">News</a>
-                        <a href="#">Team</a>
+                        <a href="[[rootPath]]team/first-team">Team</a>
                         <a href="#">Season</a>
                         <a href="#">Club</a>
                         <a href="#">Interisti</a>
@@ -340,6 +342,7 @@
                   role="main">
                   <home-page name="home"></home-page>
                   <news-page name="news" route="[[subroute]]"></news-page>
+                  <team-page name="team" route="[[subroute]]"></team-page>
                   <view404-page name="view404"></view404-page>
                 </iron-pages> 
 
@@ -348,7 +351,7 @@
 
 
                
-                <div id="container">
+                <!-- <div id="container">
                     <iron-image id="navi" src="../../img/png/palmares-stripe-desktop.jpg" style="width:100%; height:520px;" sizing="cover"></iron-image>
                     <div id="infoi">
                         <div class="layout horizontal center">
@@ -378,7 +381,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </app-drawer-layout>
         </app-header-layout>
     </template>
