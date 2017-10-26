@@ -1,0 +1,116 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="player-card">
+	<template>
+		<style>
+			:host {
+				display: inline-block;
+				margin: 10px;
+				/*--player-number-color:var(--paper-grey-200);*/
+			}
+			paper-card{
+				--paper-card-header-image:{
+					width:160px;
+					height: 180px;
+				};
+				--paper-card-header-text:{
+					background-color: #fff;
+					border-radius: 140px;
+					font-size: 16px;
+					font-weight: lighter;
+					margin-left: 62px;
+					border: 5px solid var(--player-number-color);
+					padding: 10px;
+					padding-left: 10px;
+					padding-right: 10px;
+				};
+				--paper-card-header:{
+					font-size: 10px;
+					border-bottom:5px solid var(--player-number-color,white);
+				};
+				--paper-card-content:{
+					height: 60px;
+					margin-top: -30px;
+					text-align: center;
+				}
+			}
+			h3:first-child{
+				font-size: 16px;
+				font-weight: lighter;
+				color: var(--player-number-color,var(--paper-grey-500));
+			}
+			h3:last-child{
+				margin-top: -10px;
+				color: var(--player-number-color,var(--paper-grey-800));
+			}
+		</style>
+		<paper-card id="card" heading="[[number]] " image="[[playerImage]]" elevation="1" animated-shadow="false">
+		  <div class="card-content">
+		  	<h3>[[firstname]]</h3>
+		  	<h3>[[lastname]]</h3>
+		  </div>
+		</paper-card>
+	</template>
+	<script>
+		class PlayerCard extends Polymer.Element{
+			static get is(){return 'player-card';}
+			static get properties(){
+				return {
+					playerImage:{
+						type:String,
+						value:"../../img/png/goalkeeper-1.jpg"
+					},
+					firstname:{
+						type:String,
+						value:"Samir"
+					},
+					lastname:{
+						type:String,
+						value:"Handanovic"
+					},
+					capitain:{
+						type:Boolean,
+						value:false
+					},
+					number:{
+						type:Number,
+						value:0,
+						observer:"numberChanged"
+					}
+				};
+			}
+			numberChanged(number){
+				// if (number.length===1){
+					
+				// }
+			}
+			ready(){
+				super.ready();
+				if (this.capitain){
+					this.updateStyles({
+          '--player-number-color': 'var(--inter-gold-color)',
+        });
+				}
+				// this.$.card.style = ''
+			}
+		}
+		window.customElements.define(PlayerCard.is,PlayerCard)
+	</script>
+</dom-module>
