@@ -52,7 +52,7 @@
         <div class="header-container">
                 <last-result></last-result>
         </div>        
-        <last-information></last-information>
+        <last-information slider-data="[[lastInformation]]"></last-information>
         <iron-image src="../../img/png/app_inter.jpg" preload fade style="width:1024px; height:108px;margin-left: 120px;margin-top: 20px;margin-bottom: 20px;" sizing="cover"></iron-image>
         <ul class="app-grid">
             <news-card class="item" category="Photos"></news-card>
@@ -75,7 +75,28 @@
         static get is() { return 'home-page'; }
         static get properties() {
             return {
-
+                lastInformation:{
+                        type:Array,
+                        value:function() {
+                            return [
+                                {
+                                    imageUrl:"../../img/png/last-news-2.jpg",
+                                    title:"THE MAN OF THE MATCH FROM INTER 3-2 SAMPDORIA",
+                                    subtitle:"Discover who the Nerazzurri fans voted for as the best performer in Tuesday's match "
+                                },
+                                {
+                                    imageUrl:"../../img/png/last-news-1.jpg",
+                                    title:"FC INTERNAZIONALE MILANO S.P.A SHAREHOLDERS' MEETING",
+                                    subtitle:"Alessandro Antonello: ”Hard work and commercial growth have ensured positive figures for 2016/17"
+                                },
+                                {
+                                    imageUrl:"../../img/png/last-news-3.jpg",
+                                    title:"GAVILLUCCI TO REFEREE HELLAS VERONA VS. INTER",
+                                    subtitle:"The official from Latina will be in charge of the match on Monday 30th October on matchday eleven of the 2017-18 Serie A TIM season "
+                                }
+                            ]
+                        }
+                    }
             };
         }
     }

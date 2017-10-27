@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/l2t-paper-slider/l2t-paper-slider.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../inter-site-app/my-icons.html">
 
 <dom-module id="last-information">
@@ -18,15 +19,18 @@
             --paper-slide-height: 500px;
             --paper-slide-width: 600px;
             z-index: 0;
+            --paper-slide-dot:var(--inter-gold-color);
+            --paper-slide-dot-selected:var(--inter-blue-color);
         }
-
+    
         paper-slide {
             color: grey;
             z-index: 0;
+            overflow-y: none;
         }
         div.infromation{
         	background-color: #FFF;
-        	width: 400px;
+        	width: 500px;
         	display: flex;
         	justify-content: space-around;
         }
@@ -60,31 +64,77 @@
          div.related-news>div>p{
          	width: 150px;
          	margin-left: 2px;
-         	font-size: 12px;
+         	font-size: 0.80em;
          	white-space: pre-wrap;
          }
-         iron-icon{
+         paper-icon-button.menu{
          	position: absolute;
-         	bottom: 0px;
-         	left: 0px;
-         	z-index: 2;
+         	bottom: 5px;
+         	left: 10px;
+         	z-index: 3;
+            border: 1px solid #FFF;
+            border-radius: 20px;
          }
          img{
          	z-index: 0;
+            /*position: relative;*/
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
          }
          .premiere{
          	z-index: 0;
          }
+         h2{
+            font-size: 1.2em;
+            font-weight: bolder;
+         }
+        #all-informations{
+            width: 600px;
+            height: 500px;
+            background-color: var(--paper-grey-900);
+            color: #FFF;
+         }
+         span{
+            font-weight: lighter;
+            font-size: 11px;
+         }
+         #small{
+            color: #FFF;
+            background-color: var(--paper-grey-900);
+            border-radius: 20px;
+            border-color: #FFF;
+            margin:5px;
+         }
         </style>
         
 	      <div class="premiere layout horizontal">
-	        <l2t-paper-slider total-slides="2">
-	            <paper-slide><img src="../../img/png/info_1.jpg" style='width:660px;height:500px;object-fit: contain;'></paper-slide>
-	            <paper-slide>#2</paper-slide>
-	        </l2t-paper-slider>
+    	    <div>
+                <template is="dom-if" if="[[!seeAllInfo]]">
+                    <l2t-paper-slider  total-slides="[[sliderData.length]]" position="{{position}}" auto-progress slide-duration="4">
+                        <template is="dom-repeat" items="[[sliderData]]" as="info">
+            	            <paper-slide><iron-image src="[[info.imageUrl]]" sizing="cover" style="width: 100%;height: 100%;"></iron-image></paper-slide>
+                        </template>    
+        	        </l2t-paper-slider>
+                </template>    
+                <template is="dom-if" if="[[seeAllInfo]]">
+                    <div id="all-informations">
+                        <paper-icon-button icon="clear" on-tap="_changeView" ></paper-icon-button>
+                        <div class="layout horizontal">
+                            <template is="dom-repeat" items="[[sliderData]]" as="info">
+                                <div class="layout vertical center" style="width: 176px; margin: 10px;">
+                                    <iron-image src="[[info.imageUrl]]" style="width: 176px;height: 109px;" preload sizing="cover"></iron-image>
+                                    <span>[[info.title]]</span>
+                                    <paper-button id="small">read →</paper-button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>    
+            </div>    
 	        <div class='information layout vertical center'>
-	        	<h2>[[title]]</h2>
-	        	<p>[[subtitle]]</p>
+	        	<h2>[[_currentInformation.title]]</h2>
+	        	<p>[[_currentInformation.subtitle]]</p>
 	        	<paper-button>read →</paper-button>
 						<p>Related News</p><br>
 	        	<div class="related-news layout horizontal">
@@ -99,14 +149,15 @@
 	        	</div>
 	        </div>
 	        
-	      </div>  
-	      <iron-icon icon="my-icons:all"></iron-icon>
+	      </div>
+          <paper-icon-button class="menu" on-tap="_changeView" icon="my-icons:all"></paper-icon-button>
     </template>
     <script>
     class LastInformation extends Polymer.Element {
         static get is() { return 'last-information'; }
         static get properties() {
             return {
+                sliderData:Array,
                 title:{
                 	type:String,
                 	value:"ACADEMY RESULTS FOR THE WEEKEND"
@@ -114,8 +165,25 @@
                 subtitle:{
                 	type:String,
                 	value:"Vecchi's Primavera approached the return of the UEFA Youth League with a league win. Zanchetta's Under-17s drew at Chievo Verona. "
+                },
+                _currentInformation:{
+                    type:Object,
+                    computed:"_currentInformationComputed(sliderData,position)"
+                },
+                seeAllInfo:{
+                    type:Boolean,
+                    value:false
                 }
             };
+        }
+        _currentInformationComputed(sliderData,position){
+            return sliderData[position]
+        }
+        _changeView(e){
+
+            this.seeAllInfo= !this.seeAllInfo;
+            console.log(this.seeAllInfo);
+            
         }
     }
     window.customElements.define(LastInformation.is, LastInformation);
