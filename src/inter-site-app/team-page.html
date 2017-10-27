@@ -19,7 +19,7 @@
                   attr-for-selected="name"
                   fallback-selection="view404"
                   role="main">
-          <first-team name="/first-team"></first-team>         
+          <first-team subroute="{{subroute}}" route="{{route}}" name="/first-team"></first-team>         
           <statics-team name="/statics-team"></statics-team>         
 
         </iron-pages>
@@ -38,7 +38,8 @@
                 page: {
                     type: String,
                     observer: "_pageChanged"
-                }
+                },
+                subroute:String
             };
         }
         static get observers(){
@@ -47,7 +48,22 @@
             ]
         }
         _routePageChanged(page) {
-          this.page = page || '/first-team';
+          if (page){
+            if (page.split("/")[2]){
+              this.subroute=page.split("/")[2];  
+            }
+            else{
+              // TODO: this is the case for only first-team a subroute set to all ny default, change it to handle this situation later on for other subroutes such as statics-team
+              this.subroute="all";
+            }
+            console.log(this.subroute);
+            this.page='/'+page.split("/")[1]
+          }
+          else{
+            this.page='/first-team'
+            this.subroute="all"
+          }
+          // this.page = page || '/first-team';
         }
         _pageChanged(page) {
           // Load page import on demand. Show 404 page if fails

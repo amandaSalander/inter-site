@@ -1,258 +1,335 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../elements/player-card.html">
-
 <dom-module id="first-team">
-	<template>
-		<style>
-			:host {
-				display: block;
-			}
-		</style>
-		<iron-image src="../../img/png/first-team-cover.jpg" style="width: 100%;height: 400px;" sizing="cover"></iron-image>
-		<h1>This is the first team</h1>
-		<h1>Goalkeepers</h1>
-		<template is="dom-repeat" items="[[goalkeepers]]" as="player">
-			<player-card
-				number="[[player.number]]"
-				player-image="[[player.playerImage]]"
-				lastname="[[player.lastname]]"
-				firstname="[[player.firstname]]">
-			</player-card>
-		</template>
-		<h1>Defenders</h1>
-		<template is="dom-repeat" items="[[defenders]]" as="player">
-			<player-card
-				number="[[player.number]]"
-				player-image="[[player.playerImage]]"
-				lastname="[[player.lastname]]"
-				firstname="[[player.firstname]]">
-			</player-card>
-		</template>
+    <template>
+        <style>
+         :host {
+            display: block;
+        }
 
-		<h1>Midfielders</h1>
-		<template is="dom-repeat" items="[[midfielders]]" as="player">
-			<player-card
-				number="[[player.number]]"
-				player-image="[[player.playerImage]]"
-				lastname="[[player.lastname]]"
-				firstname="[[player.firstname]]">
-			</player-card>
-		</template>
+        paper-tabs {
+            --paper-tabs-selection-bar-color: var(--inter-gold-color);
+        }
 
-		<h1>Strikers</h1>
-		<template is="dom-repeat" items="[[strikers]]" as="player">
-			<player-card
-				number="[[player.number]]"
-				player-image="[[player.playerImage]]"
-				lastname="[[player.lastname]]"
-				firstname="[[player.firstname]]">
-			</player-card>
-		</template>
+        paper-tab {
+            --paper-tab-content-unselected: {
+                color: rgba(0, 0, 0, 0.7);
+            }
+            ;
+        }
 
-	</template>
-	<script>
-		class FirstTeam extends Polymer.Element{
-			static get is(){return 'first-team';}
-			static get properties(){
-				return {
-						defenders:{
-							type:Array,
-							computed:"defendersComputed(playerData)"
-						},
-						goalkeepers:{
-							type:Array,
-							computed:"goalkeepersComputed(playerData)"
-						},
-						midfielders:{
-							type:Array,
-							computed:"midfieldersComputed(playerData)"
-						},
-						strikers:{
-							type:Array,
-							computed:"strikersComputed(playerData)"
-						},
-						playerData:{
-							type:Array,
-							value:[
-								{
-									playerImage:"../../img/png/goalkeeper-1.jpg",
-									firstname:"Samir",
-									lastname:"Handanovic",
-									position:"goalkeeper",
-									number:1
-								},
-								{
-									playerImage:"../../img/png/goalkeeper-2.jpg",
-									firstname:"Daniele",
-									lastname:"Padelli",
-									position:"goalkeeper",
-									number:27
-								},
-								{
-									playerImage:"../../img/png/goalkeeper-3.jpg",
-									firstname:"Tommaso",
-									lastname:"Berni",
-									position:"goalkeeper",
-									number:46
-								},
-								{
-									playerImage:"../../img/png/defender-1.jpg",
-									firstname:"João",
-									lastname:"Cancelo",
-									position:"defender",
-									number:7
-								},
-								{
-									playerImage:"../../img/png/defender-2.jpg",
-									firstname:"Andrea",
-									lastname:"Ranocchia",
-									position:"defender",
-									number:13
-								},
-								{
-									playerImage:"../../img/png/defender-3.jpg",
-									firstname:"Davide",
-									lastname:"Santon",
-									position:"defender",
-									number:21
-								},
-								{
-									playerImage:"../../img/png/defender-4.jpg",
-									firstname:"João",
-									lastname:"Miranda",
-									position:"defender",
-									number:25
-								},
-								{
-									playerImage:"../../img/png/defender-5.jpg",
-									firstname:"Henrique",
-									lastname:"Dalbert",
-									position:"defender",
-									number:29
-								},
-								{
-									playerImage:"../../img/png/defender-6.jpg",
-									firstname:"Danilo",
-									lastname:"D'Ambrosio",
-									position:"defender",
-									number:33
-								},
-								{
-									playerImage:"../../img/png/defender-7.jpg",
-									firstname:"Milan",
-									lastname:"Skriniar",
-									position:"defender",
-									number:37
-								},
-								{
-									playerImage:"../../img/png/defender-8.jpg",
-									firstname:"Yuto",
-									lastname:"Nagatomo",
-									position:"defender",
-									number:55
-								},
-								{
-									playerImage:"../../img/png/defender-9.jpg",
-									firstname:"Zinho",
-									lastname:"Vanheusden",
-									position:"defender",
-									number:61
-								},
-								{
-									playerImage:"../../img/png/midfielder-1.jpg",
-									firstname:"Roberto",
-									lastname:"Gagliardini",
-									position:"midfielder",
-									number:5
-								},
-								{
-									playerImage:"../../img/png/midfielder-2.jpg",
-									firstname:"Joao",
-									lastname:"Mario",
-									position:"midfielder",
-									number:10
-								},
-								{
-									playerImage:"../../img/png/midfielder-3.jpg",
-									firstname:"Matias",
-									lastname:"Vecino",
-									position:"midfielder",
-									number:11
-								},
-								{
-									playerImage:"../../img/png/midfielder-4.jpg",
-									firstname:"Iglesias",
-									lastname:"Borja Valero",
-									position:"midfielder",
-									number:20
-								},
-								{
-									playerImage:"../../img/png/midfielder-5.jpg",
-									firstname:"Marcelo",
-									lastname:"Brozovic",
-									position:"midfielder",
-									number:77
-								},
-								{
-									playerImage:"../../img/png/striker-1.jpg",
-									firstname:"Mauro",
-									lastname:"Icardi",
-									position:"striker",
-									number:9
-								},
-								{
-									playerImage:"../../img/png/striker-2.jpg",
-									firstname:"Yann",
-									lastname:"Karamoh",
-									position:"striker",
-									number:17
-								},
-								{
-									playerImage:"../../img/png/striker-3.jpg",
-									firstname:"Citadin Martins",
-									lastname:"Eder",
-									position:"striker",
-									number:23
-								},
-								{
-									playerImage:"../../img/png/striker-4.jpg",
-									firstname:"Ivan",
-									lastname:"Perisic",
-									position:"striker",
-									number:44
-								},
-								{
-									playerImage:"../../img/png/striker-5.jpg",
-									firstname:"Antonio",
-									lastname:"Candreva",
-									position:"striker",
-									number:87
-								},
-								{
-									playerImage:"../../img/png/striker-6.jpg",
-									firstname:"Andrea",
-									lastname:"Pinamonti",
-									position:"striker",
-									number:99
-								}
-							]
-						}
-				};
-			}
-			defendersComputed(playerData){
-				return playerData.filter(x=>x.position==="defender")
-			}
-			goalkeepersComputed(playerData){
-				return playerData.filter(x=>x.position==="goalkeeper")	
-			}
-			midfieldersComputed(playerData){
-				return playerData.filter(x=>x.position === 'midfielder')
-			}
-			strikersComputed(playerData){
-				return playerData.filter(x=>x.position ==='striker')
-			}
-		}
-		window.customElements.define(FirstTeam.is,FirstTeam);
-	</script>
+        .category {
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--paper-grey-900);
+        }
+        h1{
+        	font-weight: lighter;
+        	margin-left: 2%;
+        }
+        </style>
+        <iron-image src="../../img/png/first-team-cover.jpg" style="width: 100%;height: 400px;" sizing="cover"></iron-image>
+        <paper-tabs selected="{{_pageSelected}}">
+            <paper-tab on-tap="_changeRoute">All</paper-tab>
+            <paper-tab on-tap="_changeRoute">Goalkeepers</paper-tab>
+            <paper-tab on-tap="_changeRoute">Defenders</paper-tab>
+            <paper-tab on-tap="_changeRoute">Midfielders</paper-tab>
+            <paper-tab on-tap="_changeRoute">Strikers</paper-tab>
+        </paper-tabs>
+        <iron-pages selected="{{_pageSelected}}">
+            <section>
+                <div class="category">
+                    <h1>Goalkeepers</h1>
+                    <template is="dom-repeat" items="[[goalkeepers]]" as="player">
+                        <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                        </player-card>
+                    </template>
+                </div>
+                <div class="category">
+                    <h1>Defenders</h1>
+                    <template is="dom-repeat" items="[[defenders]]" as="player">
+                        <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                        </player-card>
+                    </template>
+                </div>
+                <div class="category">
+                    <h1>Midfielders</h1>
+                    <template is="dom-repeat" items="[[midfielders]]" as="player">
+                        <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                        </player-card>
+                    </template>
+                </div>
+                <div class="category">
+                    <h1>Strikers</h1>
+                    <template is="dom-repeat" items="[[strikers]]" as="player">
+                        <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                        </player-card>
+                    </template>
+                </div>
+            </section>
+            <section>
+                <template is="dom-repeat" items="[[goalkeepers]]" as="player">
+                    <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                    </player-card>
+                </template>
+            </section>
+            <section>
+                <template is="dom-repeat" items="[[defenders]]" as="player">
+                    <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                    </player-card>
+                </template>
+            </section>
+            <section>
+                <template is="dom-repeat" items="[[midfielders]]" as="player">
+                    <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                    </player-card>
+                </template>
+            </section>
+            <section>
+                <template is="dom-repeat" items="[[strikers]]" as="player">
+                    <player-card number="[[player.number]]" player-image="[[player.playerImage]]" lastname="[[player.lastname]]" firstname="[[player.firstname]]">
+                    </player-card>
+                </template>
+            </section>
+        </iron-pages>
+    </template>
+    <script>
+    class FirstTeam extends Polymer.Element {
+        static get is() { return 'first-team'; }
+        static get properties() {
+            return {
+            		subroute:String,
+            		route:Object,
+            		_pageSelected:{
+                  type:Number,
+                  computed:"_pageSelectedComputed(subroute)"
+                },
+                defenders: {
+                    type: Array,
+                    computed: "defendersComputed(playerData)"
+                },
+                goalkeepers: {
+                    type: Array,
+                    computed: "goalkeepersComputed(playerData)"
+                },
+                midfielders: {
+                    type: Array,
+                    computed: "midfieldersComputed(playerData)"
+                },
+                strikers: {
+                    type: Array,
+                    computed: "strikersComputed(playerData)"
+                },
+                playerData: {
+                    type: Array,
+                    value: [{
+                            playerImage: "../../img/png/goalkeeper-1.jpg",
+                            firstname: "Samir",
+                            lastname: "Handanovic",
+                            position: "goalkeeper",
+                            number: 1
+                        },
+                        {
+                            playerImage: "../../img/png/goalkeeper-2.jpg",
+                            firstname: "Daniele",
+                            lastname: "Padelli",
+                            position: "goalkeeper",
+                            number: 27
+                        },
+                        {
+                            playerImage: "../../img/png/goalkeeper-3.jpg",
+                            firstname: "Tommaso",
+                            lastname: "Berni",
+                            position: "goalkeeper",
+                            number: 46
+                        },
+                        {
+                            playerImage: "../../img/png/defender-1.jpg",
+                            firstname: "João",
+                            lastname: "Cancelo",
+                            position: "defender",
+                            number: 7
+                        },
+                        {
+                            playerImage: "../../img/png/defender-2.jpg",
+                            firstname: "Andrea",
+                            lastname: "Ranocchia",
+                            position: "defender",
+                            number: 13
+                        },
+                        {
+                            playerImage: "../../img/png/defender-3.jpg",
+                            firstname: "Davide",
+                            lastname: "Santon",
+                            position: "defender",
+                            number: 21
+                        },
+                        {
+                            playerImage: "../../img/png/defender-4.jpg",
+                            firstname: "João",
+                            lastname: "Miranda",
+                            position: "defender",
+                            number: 25
+                        },
+                        {
+                            playerImage: "../../img/png/defender-5.jpg",
+                            firstname: "Henrique",
+                            lastname: "Dalbert",
+                            position: "defender",
+                            number: 29
+                        },
+                        {
+                            playerImage: "../../img/png/defender-6.jpg",
+                            firstname: "Danilo",
+                            lastname: "D'Ambrosio",
+                            position: "defender",
+                            number: 33
+                        },
+                        {
+                            playerImage: "../../img/png/defender-7.jpg",
+                            firstname: "Milan",
+                            lastname: "Skriniar",
+                            position: "defender",
+                            number: 37
+                        },
+                        {
+                            playerImage: "../../img/png/defender-8.jpg",
+                            firstname: "Yuto",
+                            lastname: "Nagatomo",
+                            position: "defender",
+                            number: 55
+                        },
+                        {
+                            playerImage: "../../img/png/defender-9.jpg",
+                            firstname: "Zinho",
+                            lastname: "Vanheusden",
+                            position: "defender",
+                            number: 61
+                        },
+                        {
+                            playerImage: "../../img/png/midfielder-1.jpg",
+                            firstname: "Roberto",
+                            lastname: "Gagliardini",
+                            position: "midfielder",
+                            number: 5
+                        },
+                        {
+                            playerImage: "../../img/png/midfielder-2.jpg",
+                            firstname: "Joao",
+                            lastname: "Mario",
+                            position: "midfielder",
+                            number: 10
+                        },
+                        {
+                            playerImage: "../../img/png/midfielder-3.jpg",
+                            firstname: "Matias",
+                            lastname: "Vecino",
+                            position: "midfielder",
+                            number: 11
+                        },
+                        {
+                            playerImage: "../../img/png/midfielder-4.jpg",
+                            firstname: "Iglesias",
+                            lastname: "Borja Valero",
+                            position: "midfielder",
+                            number: 20
+                        },
+                        {
+                            playerImage: "../../img/png/midfielder-5.jpg",
+                            firstname: "Marcelo",
+                            lastname: "Brozovic",
+                            position: "midfielder",
+                            number: 77
+                        },
+                        {
+                            playerImage: "../../img/png/striker-1.jpg",
+                            firstname: "Mauro",
+                            lastname: "Icardi",
+                            position: "striker",
+                            number: 9
+                        },
+                        {
+                            playerImage: "../../img/png/striker-2.jpg",
+                            firstname: "Yann",
+                            lastname: "Karamoh",
+                            position: "striker",
+                            number: 17
+                        },
+                        {
+                            playerImage: "../../img/png/striker-3.jpg",
+                            firstname: "Citadin Martins",
+                            lastname: "Eder",
+                            position: "striker",
+                            number: 23
+                        },
+                        {
+                            playerImage: "../../img/png/striker-4.jpg",
+                            firstname: "Ivan",
+                            lastname: "Perisic",
+                            position: "striker",
+                            number: 44
+                        },
+                        {
+                            playerImage: "../../img/png/striker-5.jpg",
+                            firstname: "Antonio",
+                            lastname: "Candreva",
+                            position: "striker",
+                            number: 87
+                        },
+                        {
+                            playerImage: "../../img/png/striker-6.jpg",
+                            firstname: "Andrea",
+                            lastname: "Pinamonti",
+                            position: "striker",
+                            number: 99
+                        }
+                    ]
+                }
+            };
+        }
+        _changeRoute(e){
+        	console.log(e.explicitOriginalTarget.data);
+        	history.pushState(null,null,"/team/first-team/"+e.explicitOriginalTarget.data.toLowerCase());
+        	this.set('route.path', "/team/first-team/"+e.explicitOriginalTarget.data.toLowerCase());
+        }
+        _pageSelectedComputed(subroute){
+
+        		switch(subroute.toLowerCase()) {
+        			case "all":
+        				return 0;
+        				break;
+        			case "goalkeepers":
+        				return 1;
+        				break;	
+        			case "defenders":
+        				return 2;
+        				break;
+        			case "midfielders":
+        				return 3;
+        				break;
+        			case "strikers":
+        				return 4;
+        				break;
+        			default:
+        				return 0
+        		}
+        	
+        }
+        defendersComputed(playerData) {
+            return playerData.filter(x => x.position === "defender")
+        }
+        goalkeepersComputed(playerData) {
+            return playerData.filter(x => x.position === "goalkeeper")
+        }
+        midfieldersComputed(playerData) {
+            return playerData.filter(x => x.position === 'midfielder')
+        }
+        strikersComputed(playerData) {
+            return playerData.filter(x => x.position === 'striker')
+        }
+    }
+    window.customElements.define(FirstTeam.is, FirstTeam);
+    </script>
 </dom-module>
